@@ -41,7 +41,7 @@ void BidCell::SetUp()
 	{
 		for (int col = 0; col < 200; col++)
 		{
-
+			//regla.
 		}
 	}
 }

@@ -15,6 +15,7 @@ public:
 private:
 	std::vector<std::vector<bool>> vAutoCell;
 	std::vector<std::pair<int, int>> vOnCells;
+	std::array<bool, 8> regla;
 
 
 	CFrame& frame;
