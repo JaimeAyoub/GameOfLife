@@ -11,11 +11,12 @@ public:
 	void SetUp();
 	void DrawBorder();
 	void DrawAll();
-	bool CheckRules(std::array<bool, 8> reglas);
+	bool CheckRules(std::vector<bool> reglas,bool isAlive);
+	void Update();
 private:
 	std::vector<std::vector<bool>> vAutoCell;
 	std::vector<std::pair<int, int>> vOnCells;
-	std::array<bool, 8> regla;
+	std::vector<bool> reglas;
 
 
 	CFrame& frame;

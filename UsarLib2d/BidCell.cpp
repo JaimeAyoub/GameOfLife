@@ -1,6 +1,7 @@
 #include "BidCell.h"
 #include "../saelib2d/Frame.h"
 #include "random"
+#include "iostream"
 
 BidCell::BidCell(CFrame& mframe)
 	: frame{ mframe }
@@ -37,13 +38,7 @@ void BidCell::SetUp()
 			bina = true;
 		}
 	}
-	for (int row = 0; row < 199; row++)
-	{
-		for (int col = 0; col < 200; col++)
-		{
-			//regla.
-		}
-	}
+	
 }
 
 void BidCell::DrawBorder()
@@ -66,7 +61,49 @@ void BidCell::DrawAll()
 	}
 }
 
-bool BidCell::CheckRules(std::array<bool, 8> reglas)
+bool BidCell::CheckRules(std::vector<bool> reglas,bool isAlive)
 {
+	int value = 0;
+	for (int i = 0; i < reglas.size(); i++)
+	{
+		if (reglas[i] == true)
+			value++;
+	}
+	if (isAlive)
+	{
+		if (value <= 1) return false;
+		if (value  >= 4) return false;
+		if (value == 2 || value == 3) return true;
+	}
+	else
+	{
+		if(value == 3) return true;
+	}
 	return false;
+}
+
+void BidCell::Update()
+{
+	for (int row = 0; row < 199; row++)
+	{
+		for (int col = 0; col < 200; col++)
+		{
+
+
+			if (row > 0 && col > 0)
+			{
+				reglas.push_back(vAutoCell[row - 1][col]); //Arriba
+				reglas.push_back(vAutoCell[row + 1][col]); //Abajo
+				reglas.push_back(vAutoCell[row][col - 1]); //Izquierda
+				reglas.push_back(vAutoCell[row][col + 1]); //Derecha
+				reglas.push_back(vAutoCell[row + 1][col + 1]); // Abajo-Derecha
+				reglas.push_back(vAutoCell[row + 1][col - 1]); //Abajo - Izquierda
+				reglas.push_back(vAutoCell[row - 1][col - 1]); // Arriba - Izquierda
+				reglas.push_back(vAutoCell[row - 1][col + 1]); // Arriba - Derecha
+			}
+
+			vAutoCell[row][col] = CheckRules(reglas, vAutoCell[row][col]);
+			reglas.clear();
+		}
+	}
 }

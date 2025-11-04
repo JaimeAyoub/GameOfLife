@@ -33,6 +33,7 @@ void LeminGame::ProcessInput(float elapsedTime)
 void LeminGame::Draw(float elapsedTime)
 {	
 	//myUniCell.Draw();
+	myBidCell.Update();
 	myBidCell.DrawAll();
 }
 
